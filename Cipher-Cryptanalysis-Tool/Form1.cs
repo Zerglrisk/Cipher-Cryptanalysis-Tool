@@ -1,21 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CipherCryptanalysisTool
 {
 
-    public partial class Main : Form
+    public partial class Form1 : Form
     {
         int minLimitNumber = 0;
         int maxLimitNumber = 0;
         SubstitutionCiphers substitutionCipher = new SubstitutionCiphers();
         AES aes = new AES();
-        Info info;
 
-        public Main()
+        public Form1()
         {
             InitializeComponent();
 
@@ -172,24 +176,22 @@ namespace CipherCryptanalysisTool
                     text_Plain.Text = substitutionCipher.AdditiveCipher_Decrypt(array, startKey, endKey);
                     break;
                 case 1: //Multiplicative Cipher Decrypt
+
                     text_Plain.Text = substitutionCipher.MultiplicativeCipher_Decrypt(array, startKey, endKey);
                     break;
                 case 2: //AES - 128bit Decrypt
                     aes.setNr(10); //10 Round
                     aes.setMasterKeySize(4); //4 Word = 16byte = 128bit
-                    aes.setMiddleProcess(checkBox1.Checked);
                     text_Plain.Text = aes.Decrypt(text_Cipher.Text,text_CipherKey.Text);
                     break;
                 case 3: //AES - 192bit Decrypt
                     aes.setNr(12); //12 Round
                     aes.setMasterKeySize(6); //6 Word = 24byte = 192bit
-                    aes.setMiddleProcess(checkBox1.Checked);
                     text_Plain.Text = aes.Decrypt(text_Cipher.Text, text_CipherKey.Text);
                     break;
                 case 4: //AES - 256bit Decrypt
                     aes.setNr(14); //14 Round
                     aes.setMasterKeySize(8); //8 Word = 32byte = 256bit
-                    aes.setMiddleProcess(checkBox1.Checked);
                     text_Plain.Text = aes.Decrypt(text_Cipher.Text, text_CipherKey.Text);
                     break;
                 default:
@@ -236,19 +238,16 @@ namespace CipherCryptanalysisTool
                 case 2: //AES - 128bit Enycrypt
                     aes.setNr(10); //10 Round
                     aes.setMasterKeySize(4); //4 Word = 16byte = 128bit
-                    aes.setMiddleProcess(checkBox1.Checked);
                     text_Cipher.Text = aes.Encrypt(text_Plain.Text, text_CipherKey.Text);
                     break;
                 case 3: //AES - 192bit Decrypt
                     aes.setNr(12); //12 Round
                     aes.setMasterKeySize(6); //6 Word = 24byte = 192bit
-                    aes.setMiddleProcess(checkBox1.Checked);
                     text_Cipher.Text = aes.Encrypt(text_Plain.Text, text_CipherKey.Text);
                     break;
                 case 4: //AES - 256bit Decrypt
                     aes.setNr(14); //14 Round
                     aes.setMasterKeySize(8); //8 Word = 32byte = 256bit
-                    aes.setMiddleProcess(checkBox1.Checked);
                     text_Cipher.Text = aes.Encrypt(text_Plain.Text, text_CipherKey.Text);
                     break;
                 default:
@@ -285,50 +284,14 @@ namespace CipherCryptanalysisTool
                 label4.Visible = true;
                 text_CipherKey2.Visible = true;
                 text_CipherKey.Size = new Size(50, 25);
-                checkBox1.Visible = false;
             }
             else
             {
                 label4.Visible = false;
                 text_CipherKey2.Visible = false;
                 text_CipherKey.Size = new Size(185, 25);
-                checkBox1.Visible = true;
             }
         }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-            info = new Info();
-            Visible = false; // Hide form window.
-            ShowInTaskbar = false; // Remove from taskbar.
-            Opacity = 0;
-            info.Show();
-            timer1.Start();
-            
-            
-        }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (info.UpDown)
-                info.Opacity += 0.01;
-            else if (!info.UpDown && info.Opacity <= 0.00)
-            {
-                info.Hide();
-                timer1.Stop();
-                Visible = true; // Hide form window.
-                ShowInTaskbar = true; // Remove from taskbar.
-                Opacity = 1;
-            }
-            else
-                info.Opacity -= 0.01;
-
-            if (info.Opacity >= 1.0)
-            {
-                info.count++;
-                if (info.count > 50)
-                    info.UpDown = false;
-            }
-                
-        }
+        
     }
 }

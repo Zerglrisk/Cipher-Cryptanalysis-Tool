@@ -63,19 +63,9 @@ namespace CipherCryptanalysisTool.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap InfoBackGround {
+        internal static System.Drawing.Bitmap applications_system {
             get {
-                object obj = ResourceManager.GetObject("InfoBackGround", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static System.Drawing.Bitmap MainBackGround {
-            get {
-                object obj = ResourceManager.GetObject("MainBackGround", resourceCulture);
+                object obj = ResourceManager.GetObject("applications_system", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

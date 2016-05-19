@@ -1,6 +1,6 @@
 ﻿namespace CipherCryptanalysisTool
 {
-    partial class Main
+    partial class Form1
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btn_fSave = new System.Windows.Forms.Button();
             this.Btn_fOpen = new System.Windows.Forms.Button();
             this.radioBtn_Plain = new System.Windows.Forms.RadioButton();
@@ -48,8 +47,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btn_exit = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabPage1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -80,33 +77,27 @@
             // radioBtn_Plain
             // 
             this.radioBtn_Plain.AutoSize = true;
-            this.radioBtn_Plain.BackColor = System.Drawing.Color.Transparent;
             this.radioBtn_Plain.Checked = true;
-            this.radioBtn_Plain.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.radioBtn_Plain.ForeColor = System.Drawing.Color.White;
-            this.radioBtn_Plain.Location = new System.Drawing.Point(535, 13);
+            this.radioBtn_Plain.Location = new System.Drawing.Point(535, 15);
             this.radioBtn_Plain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioBtn_Plain.Name = "radioBtn_Plain";
-            this.radioBtn_Plain.Size = new System.Drawing.Size(65, 21);
+            this.radioBtn_Plain.Size = new System.Drawing.Size(58, 19);
             this.radioBtn_Plain.TabIndex = 13;
             this.radioBtn_Plain.TabStop = true;
             this.radioBtn_Plain.Text = "평문";
-            this.radioBtn_Plain.UseVisualStyleBackColor = false;
+            this.radioBtn_Plain.UseVisualStyleBackColor = true;
             // 
             // radioBtn_Cipher
             // 
             this.radioBtn_Cipher.AutoSize = true;
-            this.radioBtn_Cipher.BackColor = System.Drawing.Color.Transparent;
-            this.radioBtn_Cipher.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.radioBtn_Cipher.ForeColor = System.Drawing.Color.White;
-            this.radioBtn_Cipher.Location = new System.Drawing.Point(456, 13);
+            this.radioBtn_Cipher.Location = new System.Drawing.Point(456, 15);
             this.radioBtn_Cipher.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioBtn_Cipher.Name = "radioBtn_Cipher";
-            this.radioBtn_Cipher.Size = new System.Drawing.Size(83, 21);
+            this.radioBtn_Cipher.Size = new System.Drawing.Size(73, 19);
             this.radioBtn_Cipher.TabIndex = 12;
             this.radioBtn_Cipher.TabStop = true;
             this.radioBtn_Cipher.Text = "암호문";
-            this.radioBtn_Cipher.UseVisualStyleBackColor = false;
+            this.radioBtn_Cipher.UseVisualStyleBackColor = true;
             // 
             // text_Cipher
             // 
@@ -142,7 +133,7 @@
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Location = new System.Drawing.Point(12, 12);
+            this.comboBox1.Location = new System.Drawing.Point(12, 11);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(172, 23);
@@ -152,30 +143,24 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(190, 15);
+            this.label3.Location = new System.Drawing.Point(196, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 17);
+            this.label3.Size = new System.Drawing.Size(32, 15);
             this.label3.TabIndex = 1;
             this.label3.Text = "KEY";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("굴림", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(295, 14);
+            this.label4.Location = new System.Drawing.Point(299, 15);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(24, 19);
+            this.label4.Size = new System.Drawing.Size(18, 15);
             this.label4.TabIndex = 3;
             this.label4.Text = "~";
             // 
             // text_CipherKey
             // 
-            this.text_CipherKey.Location = new System.Drawing.Point(235, 11);
+            this.text_CipherKey.Location = new System.Drawing.Point(235, 9);
             this.text_CipherKey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.text_CipherKey.Name = "text_CipherKey";
             this.text_CipherKey.Size = new System.Drawing.Size(57, 25);
@@ -184,7 +169,7 @@
             // 
             // text_CipherKey2
             // 
-            this.text_CipherKey2.Location = new System.Drawing.Point(322, 11);
+            this.text_CipherKey2.Location = new System.Drawing.Point(322, 9);
             this.text_CipherKey2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.text_CipherKey2.Name = "text_CipherKey2";
             this.text_CipherKey2.Size = new System.Drawing.Size(57, 25);
@@ -193,7 +178,7 @@
             // 
             // btn_Decrypt
             // 
-            this.btn_Decrypt.Location = new System.Drawing.Point(98, 494);
+            this.btn_Decrypt.Location = new System.Drawing.Point(98, 496);
             this.btn_Decrypt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Decrypt.Name = "btn_Decrypt";
             this.btn_Decrypt.Size = new System.Drawing.Size(80, 25);
@@ -204,7 +189,7 @@
             // 
             // btn_Encrypt
             // 
-            this.btn_Encrypt.Location = new System.Drawing.Point(12, 494);
+            this.btn_Encrypt.Location = new System.Drawing.Point(12, 496);
             this.btn_Encrypt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Encrypt.Name = "btn_Encrypt";
             this.btn_Encrypt.Size = new System.Drawing.Size(80, 25);
@@ -257,32 +242,11 @@
             this.btn_exit.UseVisualStyleBackColor = true;
             this.btn_exit.Click += new System.EventHandler(this.btn_exit_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 10;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox1.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(471, 496);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(205, 21);
-            this.checkBox1.TabIndex = 18;
-            this.checkBox1.Text = "Show Middle Process";
-            this.checkBox1.UseVisualStyleBackColor = false;
-            // 
-            // Main
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::CipherCryptanalysisTool.Properties.Resources.MainBackGround;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(772, 528);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.btn_fSave);
             this.Controls.Add(this.btn_exit);
             this.Controls.Add(this.Btn_fOpen);
@@ -297,10 +261,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Name = "Form1";
             this.Text = "암호화/복호화 툴";
-            this.Load += new System.EventHandler(this.Main_Load);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -331,8 +293,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btn_exit;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
