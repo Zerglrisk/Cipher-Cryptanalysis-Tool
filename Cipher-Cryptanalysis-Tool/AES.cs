@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CipherCryptanalysisTool
 {
@@ -65,6 +62,7 @@ namespace CipherCryptanalysisTool
         private int Nr; //Round : 10, 12, 14
         private int MasterKeySize; //Nk, Key Size : 128bit(4Word), 192bit(6Word), 256bit(8Word)
         private int Nb = 4;
+        private bool middleProcess;
 
         /* 
          * Constructor
@@ -81,7 +79,7 @@ namespace CipherCryptanalysisTool
          */
         public int getNr()
         {
-            return this.Nr;
+            return Nr;
         }
         public void setNr(int Nr)
         {
@@ -89,11 +87,19 @@ namespace CipherCryptanalysisTool
         }
         public int getMasterKeySize()
         {
-            return this.MasterKeySize;
+            return MasterKeySize;
         }
         public void setMasterKeySize(int MasterKeySize)
         {
             this.MasterKeySize = MasterKeySize;
+        }
+        public bool getMiddleProcess()
+        {
+            return middleProcess;
+        }
+        public void setMiddleProcess(bool middleProcess)
+        {
+            this.middleProcess = middleProcess;
         }
 
 
