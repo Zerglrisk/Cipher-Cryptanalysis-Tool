@@ -33,10 +33,8 @@
             this.Btn_fOpen = new System.Windows.Forms.Button();
             this.radioBtn_Plain = new System.Windows.Forms.RadioButton();
             this.radioBtn_Cipher = new System.Windows.Forms.RadioButton();
-            this.text_Cipher = new System.Windows.Forms.TextBox();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
-            this.text_Plain = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -44,15 +42,17 @@
             this.text_CipherKey2 = new System.Windows.Forms.TextBox();
             this.btn_Decrypt = new System.Windows.Forms.Button();
             this.btn_Encrypt = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btn_exit = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.text_Cipher = new System.Windows.Forms.TextBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.text_Plain = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_fSave
@@ -108,18 +108,6 @@
             this.radioBtn_Cipher.Text = "암호문";
             this.radioBtn_Cipher.UseVisualStyleBackColor = false;
             // 
-            // text_Cipher
-            // 
-            this.text_Cipher.BackColor = System.Drawing.SystemColors.Window;
-            this.text_Cipher.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_Cipher.Location = new System.Drawing.Point(2, 2);
-            this.text_Cipher.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.text_Cipher.Multiline = true;
-            this.text_Cipher.Name = "text_Cipher";
-            this.text_Cipher.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.text_Cipher.Size = new System.Drawing.Size(735, 415);
-            this.text_Cipher.TabIndex = 11;
-            // 
             // ofd
             // 
             this.ofd.Filter = "Text files | *.txt";
@@ -127,17 +115,6 @@
             // sfd
             // 
             this.sfd.Filter = "Text files | *.txt";
-            // 
-            // text_Plain
-            // 
-            this.text_Plain.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_Plain.Location = new System.Drawing.Point(2, 2);
-            this.text_Plain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.text_Plain.Multiline = true;
-            this.text_Plain.Name = "text_Plain";
-            this.text_Plain.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.text_Plain.Size = new System.Drawing.Size(735, 415);
-            this.text_Plain.TabIndex = 12;
             // 
             // comboBox1
             // 
@@ -213,40 +190,6 @@
             this.btn_Encrypt.UseVisualStyleBackColor = true;
             this.btn_Encrypt.Click += new System.EventHandler(this.btn_Encrypt_Click);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tabPage1.Controls.Add(this.text_Plain);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(742, 421);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "PlainText";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 41);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(750, 450);
-            this.tabControl1.TabIndex = 16;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tabPage2.Controls.Add(this.text_Cipher);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(742, 421);
-            this.tabPage2.TabIndex = 3;
-            this.tabPage2.Text = "CipherText";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // btn_exit
             // 
             this.btn_exit.Location = new System.Drawing.Point(678, 494);
@@ -268,12 +211,69 @@
             this.checkBox1.BackColor = System.Drawing.Color.Transparent;
             this.checkBox1.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(471, 496);
+            this.checkBox1.Location = new System.Drawing.Point(467, 496);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(205, 21);
             this.checkBox1.TabIndex = 18;
             this.checkBox1.Text = "Show Middle Process";
             this.checkBox1.UseVisualStyleBackColor = false;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPage2.Controls.Add(this.text_Cipher);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(742, 421);
+            this.tabPage2.TabIndex = 3;
+            this.tabPage2.Text = "CipherText";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // text_Cipher
+            // 
+            this.text_Cipher.BackColor = System.Drawing.SystemColors.Window;
+            this.text_Cipher.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_Cipher.Location = new System.Drawing.Point(2, 2);
+            this.text_Cipher.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.text_Cipher.Multiline = true;
+            this.text_Cipher.Name = "text_Cipher";
+            this.text_Cipher.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.text_Cipher.Size = new System.Drawing.Size(735, 415);
+            this.text_Cipher.TabIndex = 11;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPage1.Controls.Add(this.text_Plain);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(742, 421);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "PlainText";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // text_Plain
+            // 
+            this.text_Plain.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_Plain.Location = new System.Drawing.Point(2, 2);
+            this.text_Plain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.text_Plain.Multiline = true;
+            this.text_Plain.Name = "text_Plain";
+            this.text_Plain.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.text_Plain.Size = new System.Drawing.Size(735, 415);
+            this.text_Plain.TabIndex = 12;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 41);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(750, 450);
+            this.tabControl1.TabIndex = 16;
             // 
             // Main
             // 
@@ -301,11 +301,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "암호화/복호화 툴";
             this.Load += new System.EventHandler(this.Main_Load);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,23 +316,23 @@
         private System.Windows.Forms.RadioButton radioBtn_Cipher;
         private System.Windows.Forms.Button btn_fSave;
         private System.Windows.Forms.Button Btn_fOpen;
-        private System.Windows.Forms.TextBox text_Cipher;
         private System.Windows.Forms.OpenFileDialog ofd;
         private System.Windows.Forms.SaveFileDialog sfd;
         private System.Windows.Forms.Button btn_Encrypt;
         private System.Windows.Forms.Button btn_Decrypt;
-        private System.Windows.Forms.TextBox text_Plain;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox text_CipherKey;
         private System.Windows.Forms.TextBox text_CipherKey2;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btn_exit;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox text_Cipher;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox text_Plain;
+        private System.Windows.Forms.TabControl tabControl1;
     }
 }
 

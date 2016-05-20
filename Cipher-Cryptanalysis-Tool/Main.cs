@@ -14,6 +14,7 @@ namespace CipherCryptanalysisTool
         SubstitutionCiphers substitutionCipher = new SubstitutionCiphers();
         AES aes = new AES();
         Info info;
+        int countforfile = 0;
 
         public Main()
         {
@@ -56,7 +57,6 @@ namespace CipherCryptanalysisTool
                 {
                     tabControl1.SelectedIndex = 1;
                     text_Cipher.Text = File.ReadAllText(ofd.FileName);
-                    
                 }
                 else if (radioBtn_Plain.Checked)
                 {
@@ -65,7 +65,6 @@ namespace CipherCryptanalysisTool
                 }
                 this.Text = "암호화/복호화 툴 : " + ofd.FileName;
             }
-            
         }
 
         /*
@@ -85,8 +84,20 @@ namespace CipherCryptanalysisTool
                 }
                 this.Text = "암호화/복호화 툴 : " + sfd.FileName;
             }
-
         }
+        private void MiddleProcessSave()
+        {
+            //refer : http://stackoverflow.com/questions/15443739/what-is-the-simplest-way-to-write-the-contents-of-a-stringbuilder-to-a-text-file
+            System.IO.StreamWriter sw = new System.IO.StreamWriter("MiddleProcess.txt", false);
+            sw.Write(aes.getMiddleProcessString().ToString());
+            sw.Close();
+
+            System.Diagnostics.Process.Start("notepad.exe", "MiddleProcess.txt");
+        }
+
+        /*
+         * 각 암호마다 제한하는 키의 수 등을 정의하는 함수이다.
+         */
         private void text_CipherKey_TextChanged(object sender, EventArgs e)
         {
             if(comboBox1.SelectedIndex == 0 || comboBox1.SelectedIndex == 1)
@@ -105,10 +116,7 @@ namespace CipherCryptanalysisTool
                     text_CipherKey.Text = maxLimitNumber.ToString();
                     text_CipherKey.Select(text_CipherKey2.Text.Length, 0);
                 }
-                    
-
                 text_CipherKey2.Text = text_CipherKey.Text;
-                
             }
             if(comboBox1.SelectedIndex == 2)
             {
@@ -118,7 +126,24 @@ namespace CipherCryptanalysisTool
                     text_CipherKey.Text = text_CipherKey.Text.Substring(0, text_CipherKey.Text.Length - 1);
                     text_CipherKey.Select(text_CipherKey.Text.Length, 0);
                 }
-                    
+            }
+            if (comboBox1.SelectedIndex == 3)
+            {
+                text_CipherKey.MaxLength = 24;
+                if (Encoding.Default.GetByteCount(text_CipherKey.Text) > 24)
+                {
+                    text_CipherKey.Text = text_CipherKey.Text.Substring(0, text_CipherKey.Text.Length - 1);
+                    text_CipherKey.Select(text_CipherKey.Text.Length, 0);
+                }
+            }
+            if (comboBox1.SelectedIndex == 4)
+            {
+                text_CipherKey.MaxLength = 32;
+                if (Encoding.Default.GetByteCount(text_CipherKey.Text) > 32)
+                {
+                    text_CipherKey.Text = text_CipherKey.Text.Substring(0, text_CipherKey.Text.Length - 1);
+                    text_CipherKey.Select(text_CipherKey.Text.Length, 0);
+                }
             }
         }
 
@@ -141,14 +166,14 @@ namespace CipherCryptanalysisTool
          */
         private void btn_Decrypt_Click(object sender, EventArgs e)
         {
-            char[] array;
+            checkBox1.Enabled = false;
 
+            char[] array;
             int startKey = 0;
             bool res = Int32.TryParse(text_CipherKey.Text, out startKey);
             int endKey = 0;
             bool res2 = Int32.TryParse(text_CipherKey2.Text, out endKey);
             
-
             if (res && res2 && startKey > endKey)
             {
                 string temp;
@@ -162,7 +187,6 @@ namespace CipherCryptanalysisTool
                 MessageBox.Show("복호화할 문자열이 없습니다.");
                 return;
             }
-                
             else
                 array = text_Cipher.Text.ToLower().ToCharArray();
 
@@ -196,17 +220,24 @@ namespace CipherCryptanalysisTool
                     break;
             }
             tabControl1.SelectedIndex = 0;
+            if (checkBox1.Checked)
+                MiddleProcessSave();
+            
+            checkBox1.Enabled = true;
+            
+            
         }
 
         private void btn_Encrypt_Click(object sender, EventArgs e)
         {
+            checkBox1.Enabled = false;
+
             char[] array;
             int startKey;
             bool res = Int32.TryParse(text_CipherKey.Text, out startKey);
             int endKey;
             bool res2 = Int32.TryParse(text_CipherKey2.Text, out endKey);
 
-            
             if (res && res2 && startKey > endKey)
             {
                 string temp;
@@ -221,7 +252,6 @@ namespace CipherCryptanalysisTool
                 MessageBox.Show("암호화할 문자열이 없습니다.");
                 return;
             }
-                
             else
                 array = text_Plain.Text.ToLower().ToCharArray();
 
@@ -255,13 +285,16 @@ namespace CipherCryptanalysisTool
                     break;
             }
             tabControl1.SelectedIndex = 1;
+            if (checkBox1.Checked)
+                MiddleProcessSave();
+
+            checkBox1.Enabled = true;
         }
 
         private void btn_exit_Click(object sender, EventArgs e)
         {
             Close();
         }
-
         
         void MenuClick(object obj, EventArgs ea)
         {
@@ -282,6 +315,7 @@ namespace CipherCryptanalysisTool
         {
             if(comboBox1.SelectedIndex == 0 || comboBox1.SelectedIndex == 1)
             {
+                text_CipherKey.Text = text_CipherKey2.Text = "";
                 label4.Visible = true;
                 text_CipherKey2.Visible = true;
                 text_CipherKey.Size = new Size(50, 25);
@@ -289,6 +323,7 @@ namespace CipherCryptanalysisTool
             }
             else
             {
+                text_CipherKey.Text = text_CipherKey2.Text = "";
                 label4.Visible = false;
                 text_CipherKey2.Visible = false;
                 text_CipherKey.Size = new Size(185, 25);
@@ -296,6 +331,13 @@ namespace CipherCryptanalysisTool
             }
         }
 
+        /*
+         * refer : https://msdn.microsoft.com/ko-kr/library/system.windows.forms.timer.tick(v=vs.110).aspx
+         * refer : https://msdn.microsoft.com/ko-kr/library/system.windows.forms.form.opacity(v=vs.110).aspx
+         * Main 폼 시작 시, info 폼을 생성하여, info form을 0.01초마다 투명도를 이용하여, 애니메이션 효과를 생성하여
+         * 정보를 보여주는 함수이다.
+         * Background 출처 : http://www.wallpaperup.com/187338/Avicii_Triangles_Logo_HD_Wallpaper_DJ.html
+         */
         private void Main_Load(object sender, EventArgs e)
         {
             info = new Info();
@@ -304,8 +346,6 @@ namespace CipherCryptanalysisTool
             Opacity = 0;
             info.Show();
             timer1.Start();
-            
-            
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -328,7 +368,6 @@ namespace CipherCryptanalysisTool
                 if (info.count > 50)
                     info.UpDown = false;
             }
-                
         }
     }
 }

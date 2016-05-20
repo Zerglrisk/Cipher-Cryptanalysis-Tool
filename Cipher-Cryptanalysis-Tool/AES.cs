@@ -61,13 +61,17 @@ namespace CipherCryptanalysisTool
 
         private int Nr; //Round : 10, 12, 14
         private int MasterKeySize; //Nk, Key Size : 128bit(4Word), 192bit(6Word), 256bit(8Word)
-        private int Nb = 4;
+        private const int Nb = 4;
         private bool middleProcess;
+        private StringBuilder middleProcessString;
 
         /* 
          * Constructor
          */
-        public AES() { }
+        public AES()
+        {
+            
+        }
         public AES(int Nr, int MasterKeySize)
         {
             this.Nr = Nr;
@@ -101,9 +105,7 @@ namespace CipherCryptanalysisTool
         {
             this.middleProcess = middleProcess;
         }
-
-
-
+        
         /*
          * 암호화 하는 함수
          * 순서는 AddRoundKey 후 각 라운드 수 만큼 SubBytes->ShiftRows->MixColumns->AddRoundKey를 한다.
@@ -111,31 +113,45 @@ namespace CipherCryptanalysisTool
          */
         public string Encrypt(string str, string key)
         {
+            middleProcessString = new StringBuilder();
             byte[] plainText = StringToByte(str, 0);
+            if (middleProcess) middleProcessString.Append("Plain to Byte\r\n" + FormatByteArray(plainText) + "\r\n");
+
             int count = 0;
             byte[] cipherText = new byte[plainText.Length];
             
             this.key = KeyStringToByte(key);
+            if (middleProcess) middleProcessString.Append("Key\r\n" + FormatByteArray(this.key) + "\r\n");
 
+            if (middleProcess) middleProcessString.Append("\r\nKeyExpansion\r\n");
             KeyExpansion();
 
             for (int i = 0; i < plainText.Length / 16; i++)
             {
                 state = BlocktoState(plainText, i*16);
-                
+                if (middleProcess) middleProcessString.Append("\r\nString " + (i * 16) + " to " + (i * 16 + 16) + "\r\n");
                 state = AddRoundKey(state, 0);
+                if (middleProcess) middleProcessString.Append("AddRoundKey\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
                 for (int round = 1; round <= Nr; round++)
                 {
+                    if (middleProcess) middleProcessString.Append("\r\nRound " + round + "\r\n");
                     state = SubBytes(state);
+                    if (middleProcess) middleProcessString.Append("SubByte\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
                     state = ShiftRows(state);
-                    if (round != Nr) MixColumns();
+                    if (middleProcess) middleProcessString.Append("ShiftRows\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
+                    if (round != Nr)
+                    {
+                        MixColumns();
+                        if (middleProcess) middleProcessString.Append("MixColumns\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
+                    }
                     state = AddRoundKey(state, round);
+                    if (middleProcess) middleProcessString.Append("AddRoundKey\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
                 }
                 var temp = StatetoBlock(state);
                 for (int j = 0 ; j < temp.Length; j++)
                     cipherText[count++] = temp[j];
                 
-            }
+            }            
             return ByteToString(cipherText, 0);
         }
 
@@ -146,24 +162,37 @@ namespace CipherCryptanalysisTool
          */
         public string Decrypt(string str, string key)
         {
+            middleProcessString = new StringBuilder();
             byte[] cipherText = StringToByte(str, 1);
+            if (middleProcess) middleProcessString.Append("Cipher to Byte\r\n" + FormatByteArray(cipherText) + "\r\n");
             int count = 0;
             byte[] plainText = new byte[cipherText.Length]; ;
 
             this.key = KeyStringToByte(key);
+            if (middleProcess) middleProcessString.Append("Key\r\n" + FormatByteArray(this.key) + "\r\n");
 
+            if (middleProcess) middleProcessString.Append("\r\nKeyExpansion\r\n");
             KeyExpansion();
             for (int i = 0; i < cipherText.Length / 16; i++)
             {
                 state = BlocktoState(cipherText, i*16);
-
+                if (middleProcess) middleProcessString.Append("\r\nString " + (i * 16) + " to " + (i * 16 + 16) + "\r\n");
                 state = AddRoundKey(state, Nr);
+                if (middleProcess) middleProcessString.Append("AddRoundKey\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
                 for (int round = Nr - 1; round >= 0; round--)
                 {
+                    if (middleProcess) middleProcessString.Append("\r\nRound " + round + "\r\n");
                     state = InvShiftRows(state);
+                    if (middleProcess) middleProcessString.Append("InvSubByte\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
                     state = InvSubBytes(state);
+                    if (middleProcess) middleProcessString.Append("InvSubByte\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
                     state = AddRoundKey(state, round);
-                    if (round != 0) InvMixColumns();
+                    if (middleProcess) middleProcessString.Append("AddRoundKey\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
+                    if (round != 0)
+                    {
+                        InvMixColumns();
+                        if (middleProcess) middleProcessString.Append("InvMixColumns\r\n" + FormatByteArray(StatetoBlock(state)) + "\r\n");
+                    }
                 }
                 var temp = StatetoBlock(state);
                 for (int j = 0; j < temp.Length; j++)
@@ -482,23 +511,28 @@ namespace CipherCryptanalysisTool
                 w[j, 1] = key[4 * j + 1];
                 w[j, 2] = key[4 * j + 2];
                 w[j, 3] = key[4 * j + 3];
+                if (middleProcess) middleProcessString.Append("w[" + j + "] : " + System.String.Format("{0:X2} ", w[j,0]) + " " +
+                        System.String.Format("{0:X2} ", w[j, 1]) + " " + System.String.Format("{0:X2} ", w[j, 2]) + " " + System.String.Format("{0:X2} ", w[j, 3]) + "\r\n");
             }
 
             for(int j= MasterKeySize; j< (Nr + 1) * Nb; j++)
             {
                 if (MasterKeySize == 8 && j % 4 == 0 && j % MasterKeySize != 0)
                 {
+                    if (middleProcess) middleProcessString.Append("\r\nAES 256bit " + j + " % 4 == 0 && " + j + " % " + MasterKeySize + " != 0\r\n");
                     t[0] = w[j - 1, 0];
                     t[1] = w[j - 1, 1];
                     t[2] = w[j - 1, 2];
                     t[3] = w[j - 1, 3];
-
+                    if (middleProcess) middleProcessString.Append("Before SubWord t : " + FormatByteArray(t) + "\r\n");
                     t = SubWord(t);
-
+                    if (middleProcess) middleProcessString.Append("After SubWord t :" + FormatByteArray(t) + "\r\n");
                     w[j, 0] = (byte)(w[j - MasterKeySize, 0] ^ t[0]);
                     w[j, 1] = (byte)(w[j - MasterKeySize, 1] ^ t[1]);
                     w[j, 2] = (byte)(w[j - MasterKeySize, 2] ^ t[2]);
                     w[j, 3] = (byte)(w[j - MasterKeySize, 3] ^ t[3]);
+                    if (middleProcess) middleProcessString.Append("w[" + j + "] : " + System.String.Format("{0:X2} ", w[j, 0]) + " " +
+                        System.String.Format("{0:X2} ", w[j, 1]) + " " + System.String.Format("{0:X2} ", w[j, 2]) + " " + System.String.Format("{0:X2} ", w[j, 3]) + "\r\n");
                 }
                 else if (j % MasterKeySize != 0)
                 {
@@ -506,18 +540,22 @@ namespace CipherCryptanalysisTool
                     w[j, 1] = (byte)(w[j - MasterKeySize, 1] ^ w[j - 1, 0]);
                     w[j, 2] = (byte)(w[j - MasterKeySize, 2] ^ w[j - 1, 0]);
                     w[j, 3] = (byte)(w[j - MasterKeySize, 3] ^ w[j - 1, 0]);
+                    if (middleProcess) middleProcessString.Append("w[" + j + "] : " + System.String.Format("{0:X2} ", w[j, 0]) + " " +
+                        System.String.Format("{0:X2} ", w[j, 1]) + " " + System.String.Format("{0:X2} ", w[j, 2]) + " " + System.String.Format("{0:X2} ", w[j, 3]) + "\r\n");
                 }
                 
                 else
                 {
+                    if (middleProcess) middleProcessString.Append("\r\n" + j + " % " + MasterKeySize + " == 0\r\n");
                     t[0] = w[j - 1, 0];
                     t[1] = w[j - 1, 1];
                     t[2] = w[j - 1, 2];
                     t[3] = w[j - 1, 3];
-
+                    if (middleProcess) middleProcessString.Append("Before SubWord Before RotWord  t : " + FormatByteArray(t) + "\r\n");
                     t = SubWord(RotWord(t));
-
+                    if (middleProcess) middleProcessString.Append("After SubWord After RotWord t :" + FormatByteArray(t) + "\r\n");
                     t[0] = (byte)(t[0] ^ RCon[j / MasterKeySize, 0]);
+                    if (middleProcess) middleProcessString.Append("After XOR RCon t :" + FormatByteArray(t) + "\r\n");
                     //RCon 콘스탄트르를 보면, 제일 앞자리, 즉 t[0]만 쓰기 떄문에, 나머지는 계산하여 대입할 필요가 없다.
                     //t[1] = (byte)(t[1] ^ RCon[j / MasterKeySize, 1]);
                     //t[2] = (byte)(t[2] ^ RCon[j / MasterKeySize, 2]);
@@ -526,11 +564,12 @@ namespace CipherCryptanalysisTool
                     w[j, 1] = w[j - MasterKeySize, 1];
                     w[j, 2] = w[j - MasterKeySize, 2];
                     w[j, 3] = w[j - MasterKeySize, 3];
+                    if (middleProcess) middleProcessString.Append("w[" + j + "] : " + System.String.Format("{0:X2} ", w[j, 0]) + " " +
+                        System.String.Format("{0:X2} ", w[j, 1]) + " " + System.String.Format("{0:X2} ", w[j, 2]) + " " + System.String.Format("{0:X2} ", w[j, 3]) + "\r\n");
                     //w[j, 0] = (byte)(w[j - MasterKeySize, 0] ^ t[0]);
                     //w[j, 1] = (byte)(w[j - MasterKeySize, 1] ^ t[1]); 
                     //w[j, 2] = (byte)(w[j - MasterKeySize, 2] ^ t[2]);
                     //w[j, 3] = (byte)(w[j - MasterKeySize, 3] ^ t[3]);
-                    int jj = j / MasterKeySize;
                 }
 
             }
@@ -562,6 +601,28 @@ namespace CipherCryptanalysisTool
             bytes[2] = SubByte_transformation_table[bytes[2] >> 4, bytes[2] & 0x0F];
             bytes[3] = SubByte_transformation_table[bytes[3] >> 4, bytes[3] & 0x0F];
             return bytes;
+        }
+
+        public StringBuilder getMiddleProcessString()
+        {
+            return middleProcessString;
+        }
+
+        /*
+         * refer : http://stackoverflow.com/questions/1149611/getting-slowaes-and-rijndaelmanaged-class-in-net-to-play-together
+         * 바이트 배열을 String으로 보기 좋게 바꿔주는 함수이다.
+         */
+        private string FormatByteArray(byte[] b)
+        { 
+            var sb1 = new StringBuilder();
+            var i = 0;
+            for (i = 0; i < b.Length; i++)
+            {
+                if (i != 0 && i % 16 == 0)
+                    sb1.Append("\n");
+                sb1.Append(System.String.Format("{0:X2} ", b[i]));
+            }
+            return sb1.ToString();
         }
     }
 }
