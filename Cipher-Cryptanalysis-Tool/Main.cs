@@ -371,5 +371,20 @@ namespace CipherCryptanalysisTool
                     info.UpDown = false;
             }
         }
+
+        private void text_Plain_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+                if (e.KeyCode == Keys.A)
+                    text_Plain.SelectAll();
+
+        }
+
+        private void text_Cipher_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+                if (e.KeyCode == Keys.A)
+                    text_Cipher.SelectAll();
+        }
     }
 }

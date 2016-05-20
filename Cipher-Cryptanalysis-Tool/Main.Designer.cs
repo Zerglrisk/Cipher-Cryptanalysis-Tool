@@ -241,6 +241,7 @@
             this.text_Cipher.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.text_Cipher.Size = new System.Drawing.Size(735, 415);
             this.text_Cipher.TabIndex = 11;
+            this.text_Cipher.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_Cipher_KeyDown);
             // 
             // tabPage1
             // 
@@ -264,6 +265,7 @@
             this.text_Plain.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.text_Plain.Size = new System.Drawing.Size(735, 415);
             this.text_Plain.TabIndex = 12;
+            this.text_Plain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_Plain_KeyDown);
             // 
             // tabControl1
             // 

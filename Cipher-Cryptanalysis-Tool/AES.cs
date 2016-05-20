@@ -164,6 +164,8 @@ namespace CipherCryptanalysisTool
         {
             middleProcessString = new StringBuilder();
             byte[] cipherText = StringToByte(str, 1);
+            if (cipherText == null) //FormatException e
+                return null;
             if (middleProcess) middleProcessString.Append("Cipher to Byte\r\n" + FormatByteArray(cipherText) + "\r\n");
             int count = 0;
             byte[] plainText = new byte[cipherText.Length]; ;
@@ -239,7 +241,14 @@ namespace CipherCryptanalysisTool
             if (mode == 0) //encrypt
                 temp = Encoding.UTF8.GetBytes(str);
             else //decrypt
-                temp = Convert.FromBase64String(str);
+                try
+                {
+                    temp = Convert.FromBase64String(str);
+                }catch(FormatException e)
+                {
+                    System.Windows.Forms.MessageBox.Show("복호화 에러 - 다시 복호화 하여 주십시오.");
+                    return null;
+                }
             if (temp.Length % 16 != 0 || temp.Length == 0)
                 StrByte = new byte[temp.Length + (16 - (temp.Length % 16))];
             else
