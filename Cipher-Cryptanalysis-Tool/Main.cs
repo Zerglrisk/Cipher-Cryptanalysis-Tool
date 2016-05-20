@@ -185,6 +185,7 @@ namespace CipherCryptanalysisTool
             if (text_Cipher.Text == "")
             {
                 MessageBox.Show("복호화할 문자열이 없습니다.");
+                checkBox1.Enabled = true;
                 return;
             }
             else
@@ -250,6 +251,7 @@ namespace CipherCryptanalysisTool
             if (text_Plain.Text == "")
             {
                 MessageBox.Show("암호화할 문자열이 없습니다.");
+                checkBox1.Enabled = true;
                 return;
             }
             else
