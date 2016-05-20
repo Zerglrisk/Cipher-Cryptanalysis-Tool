@@ -635,7 +635,3 @@ namespace CipherCryptanalysisTool
         }
     }
 }
-//http://www.nullskull.com/a/1127/advanced-encryption-standerd-aes-encryption-using-c--a-data-security.aspx
-//http://huammmm1.tistory.com/381
-//http://reinliebe.tistory.com/37
-//http://www.cs.utsa.edu/~wagner/laws/AESintro.html -> http://www.cs.utsa.edu/~wagner/lawsbookcolor/laws.pdf
